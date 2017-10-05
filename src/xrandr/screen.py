@@ -1,5 +1,5 @@
-# Copyright (C) 2017  Piotr Czajka <digitalplasma@protonmail.com>
-# Author: Piotr Czajka <digitalplasma@protonmail.com>
+# Copyright (C) 2017  Piotr Czajka <czajka@protonmail.com>
+# Author: Piotr Czajka <czajka@protonmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,9 @@ import re
 class Screen():
     """Represents a single screen"""
 
-    pattern = re.compile('(.+?)\s.*?(\d+x\d+)\+(\d+\+\d+)')
+    pattern = re.compile(
+                    '(.+?)\sconnected\s(?:[a-z]+)?\s?(\d+x\d+)\+(\d+\+\d+)'
+                    )
 
     def __init__(self, xrandrline: str):
         """Decodes primary screen line from xrandr output and
@@ -38,10 +40,16 @@ class Screen():
 
     @staticmethod
     def __get_screen_info(xrandrline: str):
+        """searches given line for name, resolution and offset
+        and returns a tuple containing them
+
+        :param xrandrline:
+        :type xrandrline: str
+        """
         match = re.search(Screen.pattern, xrandrline)
 
         name = match.group(1)
         resolution = tuple([int(x) for x in match.group(2).split('x')])
         offset = tuple([int(x) for x in match.group(3).split('+')])
 
-        return name, resolution, offset
+        return tuple([name, resolution, offset])

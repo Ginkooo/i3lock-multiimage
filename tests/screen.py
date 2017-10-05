@@ -1,5 +1,5 @@
-# Copyright (C) 2017  Piotr Czajka <digitalplasma@protonmail.com>
-# Author: Piotr Czajka <digitalplasma@protonmail.com>
+# Copyright (C) 2017  Piotr Czajka <czajka@protonmail.com>
+# Author: Piotr Czajka <czajka@protonmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,9 +24,9 @@ class ScreenTests(TestCase):
         self.hdmi0 = ('HDMI-0 connected primary 1920x1080+1920+0'
                       '(normal left invertex right x axis y axis)'
                       '598mm x 336 mm')
-        self.vga0 = ('VGA-0 connected 1920x1080+0+0'
+        self.vga0 = ('VGA-0 connected 1920x1080+0+0 '
                      '(normal left inverted right x axis y axis)'
-                     '521mm x 293mm')
+                     '521mm x 293mm ')
 
     def test_can_encapsulate_xrandr_line(self):
         screen1 = Screen(self.hdmi0)
