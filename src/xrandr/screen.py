@@ -14,9 +14,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import re
+
 
 class Screen():
     """Represents a single screen"""
+
+    pattern = re.compile('(.+?)\s.*?(\d+x\d+)\+(\d+\+\d+)')
 
     def __init__(self, xrandrline: str):
         """Decodes primary screen line from xrandr output and
@@ -26,4 +30,18 @@ class Screen():
                            (primary one, (HDMI-1 connected) etc.
         :type xrandrline: str
         """
-        pass
+        name, res, offset = Screen.__get_screen_info(xrandrline)
+
+        self.name = name
+        self.resolution = res
+        self.offset = offset
+
+    @staticmethod
+    def __get_screen_info(xrandrline: str):
+        match = re.search(Screen.pattern, xrandrline)
+
+        name = match.group(1)
+        resolution = tuple([int(x) for x in match.group(2).split('x')])
+        offset = tuple([int(x) for x in match.group(3).split('+')])
+
+        return name, resolution, offset
