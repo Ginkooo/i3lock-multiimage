@@ -28,14 +28,37 @@ class ScreenTests(TestCase):
                      '(normal left inverted right x axis y axis)'
                      '521mm x 293mm ')
 
+        self.rightvga0 = ('VGA-0 connected 1920x1080+0+0 '
+                          'right (normal left inverted right x axis y axis)'
+                          '521mm x 293mm ')
+
+        self.invertedvga0 = ('VGA-0 connected 1920x1080+0+0 '
+                             'inverted '
+                             '(normal left inverted right x axis y axis)'
+                             '521mm x 293mm ')
+
     def test_can_encapsulate_xrandr_line(self):
         screen1 = Screen(self.hdmi0)
         screen2 = Screen(self.vga0)
+        screen3 = Screen(self.rightvga0)
+        screen4 = Screen(self.invertedvga0)
 
         self.assertEqual('HDMI-0', screen1.name)
         self.assertEqual((1920, 1080), screen1.resolution)
         self.assertEqual((1920, 0), screen1.offset)
+        self.assertEqual(0, screen1.rotation)
 
         self.assertEqual('VGA-0', screen2.name)
         self.assertEqual((1920, 1080), screen2.resolution)
         self.assertEqual((0, 0), screen2.offset)
+        self.assertEqual(0, screen2.rotation)
+
+        self.assertEqual('VGA-0', screen2.name)
+        self.assertEqual((1920, 1080), screen2.resolution)
+        self.assertEqual((0, 0), screen2.offset)
+        self.assertEqual(90, screen3.rotation)
+
+        self.assertEqual('VGA-0', screen2.name)
+        self.assertEqual((1920, 1080), screen2.resolution)
+        self.assertEqual((0, 0), screen2.offset)
+        self.assertEqual(180, screen4.rotation)

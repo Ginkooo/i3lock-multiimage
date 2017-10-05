@@ -18,10 +18,11 @@ import re
 
 
 class Screen():
-    """Represents a single screen"""
+    """Represents a single screen (to be honest, output)"""
 
     pattern = re.compile(
-                    '(.+?)\sconnected\s(?:[a-z]+)?\s?(\d+x\d+)\+(\d+\+\d+)'
+                    '(.+?)\sconnected\s'
+                    '(?:[a-z]+)?\s?(\d+x\d+)\+(\d+\+\d+)\s?(\w*)'
                     )
 
     def __init__(self, xrandrline: str):
@@ -32,24 +33,54 @@ class Screen():
                            (primary one, (HDMI-1 connected) etc.
         :type xrandrline: str
         """
-        name, res, offset = Screen.__get_screen_info(xrandrline)
+        name, res, offset, rotation = Screen.__get_screen_info(xrandrline)
 
         self.name = name
         self.resolution = res
         self.offset = offset
+        self.rotation = rotation
 
     @staticmethod
-    def __get_screen_info(xrandrline: str):
+    def __map_rotation_to_int(rotation: str) -> int:
+        """Takes xrandr rotation string and returns rotation angle
+
+        :param rotation: xrandr rotation string
+        :type rotation: str
+
+        :returns: rotation
+        :rtype: int
+        """
+        mapping = {
+                'right': 90,
+                'left': -90,
+                'inverted': 180,
+                '': 0,
+                }
+
+        try:
+            rotation = mapping[rotation]
+        except KeyError:
+            raise ValueError('Unsupported monitor rotation {}'
+                             .format(rotation))
+        return rotation
+
+    @staticmethod
+    def __get_screen_info(xrandrline: str) -> tuple:
         """searches given line for name, resolution and offset
         and returns a tuple containing them
 
-        :param xrandrline:
+        :param xrandrline: "connected" line from xrandr
         :type xrandrline: str
+
+        :returns: tuple containing information about display in format
+                    (name, resolution, offset, rotation)
         """
         match = re.search(Screen.pattern, xrandrline)
 
         name = match.group(1)
         resolution = tuple([int(x) for x in match.group(2).split('x')])
         offset = tuple([int(x) for x in match.group(3).split('+')])
+        rotation = match.group(4)
+        rotation = Screen.__map_rotation_to_int(rotation)
 
-        return tuple([name, resolution, offset])
+        return tuple([name, resolution, offset, rotation])
