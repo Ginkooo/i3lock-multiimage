@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-# Copyright (C) 2017  Piotr Czajka <digitalplasma@protonmail.com>
-# Author: Piotr Czajka <digitalplasma@protonmail.com>
+# Copyright (C) 2017  Piotr Czajka <czajka@protonmail.com>
+# Author: Piotr Czajka <czajka@protonmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
