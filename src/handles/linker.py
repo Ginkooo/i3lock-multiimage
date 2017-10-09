@@ -16,9 +16,6 @@
 
 from collections import namedtuple
 
-from src.xrandr.screen import Screen
-from src.images.image import Image
-
 
 class Linker():
     """Class linking images to monitors"""
