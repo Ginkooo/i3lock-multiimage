@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import imghdr
-import PIL
+import PIL.Image
 
 
 class BadFileType(Exception):
@@ -33,6 +33,8 @@ class Image():
         :type filepath: str
         """
         Image.__assert_png(filepath)
+        self.raw = Image._create_raw_pillow_image_from_file(filepath)
+
 
 
     @staticmethod
@@ -45,3 +47,15 @@ class Image():
         type_ = imghdr.what(filepath)
         if type_ != 'png':
             raise BadFileType('{} is not a PNG file'.format(filepath))
+
+    @staticmethod
+    def _create_raw_pillow_image_from_file(filepath: str) -> PIL.Image:
+        """Loads given image file and creates Pillow Image from it
+
+        :param filepath: Path to the image file
+        :type filepath: str
+
+        :rtype: PIL.Image
+        """
+        image = PIL.Image.open(filepath)
+        return image

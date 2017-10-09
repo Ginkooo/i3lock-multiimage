@@ -34,3 +34,9 @@ class ImageTests(TestCase):
             _ = Image(self.jpg_path)
 
         _ = Image(self.png_path)
+
+    def test_can_load_image(self):
+        img = Image(self.png_path)
+
+        self.assertTrue(hasattr(img, 'raw'))
+        self.assertIsInstance(img.raw, PIL.Image.Image)
