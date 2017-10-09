@@ -35,8 +35,6 @@ class Image():
         Image.__assert_png(filepath)
         self.raw = Image._create_raw_pillow_image_from_file(filepath)
 
-
-
     @staticmethod
     def __assert_png(filepath: str):
         """Raises error if file is not a png
@@ -59,3 +57,16 @@ class Image():
         """
         image = PIL.Image.open(filepath)
         return image
+
+    @property
+    def size(self) -> tuple:
+        """Gets image size
+
+        :returns: (width, height) pair
+        :rtype: tuple
+        """
+        return self.raw.size
+
+    @size.setter
+    def size(self, new_size):
+        self.raw = self.raw.resize(new_size)

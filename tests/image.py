@@ -40,3 +40,9 @@ class ImageTests(TestCase):
 
         self.assertTrue(hasattr(img, 'raw'))
         self.assertIsInstance(img.raw, PIL.Image.Image)
+
+    def test_can_be_resized(self):
+        img = Image(self.png_path)
+        img.size = (23, 32)
+
+        self.assertEqual((23, 32), img.size)
