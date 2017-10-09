@@ -14,7 +14,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
 import imghdr
+import os
+import tempfile
+
 import PIL.Image
 
 
@@ -34,6 +38,23 @@ class Image():
         """
         Image.__assert_png(filepath)
         self.raw = Image._create_raw_pillow_image_from_file(filepath)
+
+    @staticmethod
+    def new(resolution: tuple):
+        """Creates new image of given size
+
+        :param resolution: (width, height) pair
+        :type resolution: tuple
+
+        :returns: new Image object
+        :rtype: Image
+        """
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = os.path.join(tmpdir, 'image.png')
+            img = PIL.Image.new('RGB', resolution)
+            img.save(path)
+            ret = Image(path)
+        return ret
 
     @staticmethod
     def __assert_png(filepath: str):
