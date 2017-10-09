@@ -23,7 +23,7 @@ class LinkerTests(TestCase):
     """Linker Tests"""
 
     def test_can_return_image_screen_pairs(self):
-        images1 = ('image{}'.format(str(x)) for x in range(4))
+        images1 = ('image{}'.format(x) for x in range(4))
         screens1 = ('screen{}'.format(str(x)) for x in range(4))
         images2 = ('image{}'.format(str(x)) for x in range(4))
         screens2 = ('screen{}'.format(str(x)) for x in range(6))
@@ -44,3 +44,4 @@ class LinkerTests(TestCase):
         self.assertEqual(4, len(pairs1))
         self.assertEqual(4, len(pairs2))
         self.assertEqual(4, len(pairs3))
+
