@@ -34,7 +34,6 @@ class Displayer():
         for pair in self.pairs:
             image = pair.image
             screen = pair.screen
-            print(screen.offset)
             bg.paste(image.raw, screen.offset)
         return bg
 
