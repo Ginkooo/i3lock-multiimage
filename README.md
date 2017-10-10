@@ -25,6 +25,35 @@ CHANGE IMAGES
 =============
 You can change displayed images by replacing pngs in images folder
 
+SET WHICH IMAGE DISPLAYS ON WHICH MONITOR
+=========================================
+To achieve this, you must name images in a right alphabetical order, and match the order with `xrandr` output. For example:
+
+You have three images and three monitors.
+
+Images are:
+
+`a.png`, `b.png`, `c.png`
+
+Output from xrandr is like:
+
+```
+HDMI-0 connected
+[...]
+VGA-0 connected
+[...]
+HDMI-1 connected
+[...]
+```
+
+So HDMI-0 is first, VGA-0 is second and HDMI-1 is third.
+
+a.png would be on HDMI-0,
+
+b.png would be on VGA-0,
+
+c.png would be on HDMI-1
+
 REQUIREMENTS
 ============
 Python3+
@@ -37,11 +66,11 @@ Pillow library for Python3
 WHAT WORKS
 ==========
 - Display image on inline-positioned monitors (same height)
+- Not inline aligned monitors, rotated monitors etc.
 
 
 WHAT DOESN'T WORK
 =================
-- Not inline aligned monitors, rotated monitors etc.
 - Image count different than monitor count
 
 TODO
