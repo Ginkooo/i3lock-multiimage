@@ -29,7 +29,8 @@ from src.handles.displayer import Displayer
 
 def main():
     screens = Xrandr.get_monitors()
-    images = Reader.get_images(config.IMAGE_FOLDER)
+    path = os.path.join(config.FOLDER, config.IMAGE_FOLDER)
+    images = Reader.get_images(path)
     images = list(images)
     screens = list(screens)
     linker = Linker(images=images, screens=screens)
