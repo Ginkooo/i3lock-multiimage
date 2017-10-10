@@ -33,4 +33,4 @@ class Reader():
         :rtype: iter
         """
         for filename in os.listdir(directory):
-            yield Image(filename)
+            yield Image(os.path.join(directory, filename))

@@ -22,6 +22,7 @@ import PIL.Image
 
 from src.images.image import Image, BadFileType
 
+
 class ImageTests(TestCase):
     """Test Image encapsulation class"""
 

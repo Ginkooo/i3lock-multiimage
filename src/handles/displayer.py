@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from PIL import Image
+
 
 class Displayer():
     """Scales images to screens and displays them"""
@@ -28,7 +30,13 @@ class Displayer():
     def make_background(self):
         """Makes one big Pillow image to put others image into"""
         size = self.get_full_size()
-        pass
+        bg = Image.new('RGB', size, color='#ffffff')
+        for pair in self.pairs:
+            image = pair.image
+            screen = pair.screen
+            print(screen.offset)
+            bg.paste(image.raw, screen.offset)
+        return bg
 
     def get_full_size(self):
         """Gets full background size

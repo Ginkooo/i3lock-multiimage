@@ -14,21 +14,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from collections import namedtuple
-
 
 class Resizer():
     """It is to contain image sequences rezisement tools"""
 
     @staticmethod
-    def resize_pairs(pairs: namedtuple):
+    def resize_pairs(pairs: iter):
         """Takes screen image pair and resizes each image to the screen
-        It modifies given images!
 
         :param pairs: image, screen pair
         :type pairs: namedtuple
+
+        :returns: new resized pairs
+        :rtype: iter
         """
         for pair in pairs:
             image = pair.image
             screen = pair.screen
             image.size = screen.resolution
+
+        return pairs
