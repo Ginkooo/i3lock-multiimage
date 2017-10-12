@@ -11,9 +11,13 @@ cd i3lock-multiimage
 python3 -m pip install --user -r requirements
 ```
 
+change FOLDER in config.py to path of your script if you want to run it without doing next steps
+
 Run
 
 `sudo ./setup.py`
+
+change FOLDER to new location
 
 Then just lock the screen by typing
 
