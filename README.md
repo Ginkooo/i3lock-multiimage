@@ -80,3 +80,4 @@ WHAT DOESN'T WORK
 TODO
 ====
 - Reuse already generated image
+- Optional "Type in your password"
